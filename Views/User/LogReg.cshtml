@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@using wplan.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model wplan.Models.User
+
+<form asp-controller="User" asp-action="register" method="POST">
+    <h4>
+        <label asp-for="firstname"></label>
+        <input asp-for="firstname">
+        <span asp-validation-for="firstname"></span>
+    </h4>
+    <h4>
+        <label asp-for="lastname"></label>
+        <input asp-for="lastname">
+        <span asp-validation-for="lastname"></span>
+    </h4>
+    <h4>
+        <label asp-for="email"></label>
+        <input asp-for="email">
+        <span asp-validation-for="email"></span>
+    </h4>
+    <h4>
+        <label asp-for="password"></label>
+        <input asp-for="password">
+        <span asp-validation-for="password"></span>
+    </h4>
+    <h4>
+        <label asp-for="confirm"></label>
+        <input asp-for="confirm">
+        <span asp-validation-for="confirm"></span>
+    </h4>
+    <input type="submit" value="Register">
+</form>
+
+<form asp-controller="Login" asp-action="login" method="POST">
+    <h4>
+        <label asp-for="email"></label>
+        <input asp-for="email">
+        <span asp-validation-for="email"></span>
+    </h4>
+    <h4>
+        <label asp-for="password"></label>
+        <input asp-for="password">
+        <span asp-validation-for="password"></span>
+    </h4>
+    <input type="submit" value="Register">
+</form>
