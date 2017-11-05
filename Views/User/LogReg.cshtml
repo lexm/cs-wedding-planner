@@ -3,8 +3,9 @@
 }
 @using wplan.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model wplan.Models.User
+@model wplan.Models.UserViewModel
 
+<h3>Register</h3>
 <form asp-controller="User" asp-action="register" method="POST">
     <h4>
         <label asp-for="firstname"></label>
@@ -34,6 +35,7 @@
     <input type="submit" value="Register">
 </form>
 
+<h3>Login</h3>
 <form asp-controller="Login" asp-action="login" method="POST">
     <h4>
         <label asp-for="email"></label>
