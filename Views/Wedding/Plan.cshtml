@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@using wplan.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model wplan.Models.WeddingViewModel
+
+<h3>Plan Your Wedding</h3>
+
+<form asp-controller="Wedding" asp-action="plan" method="POST">
+    <h4>
+        <label asp-for="wedder1"></label>
+        <input asp-for="wedder1">
+        <span asp-validation-for="wedder1"></span>
+    </h4> 
+    <h4>
+        <label asp-for="wedder2"></label>
+        <input asp-for="wedder2">
+        <span asp-validation-for="wedder2"></span>
+    </h4> 
+    <h4>
+        <label asp-for="date"></label>
+        <input asp-for="date">
+        <span asp-validation-for="date"></span>
+    </h4> 
+    <h4>
+        <label asp-for="address"></label>
+        <input asp-for="address">
+        <span asp-validation-for="address"></span>
+    </h4>
+    <input type="submit" value="Create">
+</form>

@@ -32,6 +32,7 @@ namespace wplan
         {
             // Add framework services.
             services.Configure<MySqlOptions>(Configuration.GetSection("DBInfo"));
+            services.AddSession();
             services.AddMvc();
             services.AddDbContext<WPlanContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
         }
@@ -53,6 +54,7 @@ namespace wplan
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

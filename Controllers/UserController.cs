@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using wplan.Models;
 
@@ -44,12 +45,18 @@ namespace wplan.Controllers
                         firstname = user.firstname,
                         lastname = user.lastname,
                         email = user.email,
-                        password = user.password
+                        password = user.password,
+                        created_at = DateTime.Now,
+                        updated_at = DateTime.Now
                     };
                     _context.Add(NewUser);
                     _context.SaveChanges();
+                    NewUser = _context.users.SingleOrDefault(login => login.email == UserEmail);
+                    HttpContext.Session.SetInt32("userid", NewUser.userid);
+                    HttpContext.Session.SetString("email", NewUser.email);
                     System.Console.WriteLine("Iz guud!");
-                    return RedirectToAction("Success");
+                    return RedirectToAction("Plan", "Wedding");
+                    // return RedirectToAction("Success");
                 }
                 else
                 {
@@ -75,9 +82,13 @@ namespace wplan.Controllers
             {
                 PasswordHasher<UserViewModel> Hasher = new PasswordHasher<UserViewModel>();
                 string CheckPassword = Hasher.HashPassword(user, user.password);
-                if(LookupUser.password == CheckPassword)
+                // if(LookupUser.password == CheckPassword)
+                if(0 != Hasher.VerifyHashedPassword(user, LookupUser.password, user.password))
                 {
-                    return RedirectToAction("Success");
+                    HttpContext.Session.SetInt32("userid", LookupUser.userid);
+                    HttpContext.Session.SetString("email", LookupUser.email);
+                    return RedirectToAction("Plan", "Wedding");
+                    // return RedirectToAction("Success");
                 }
             }
             ModelState.AddModelError("password", "User/password mismatch");
@@ -89,6 +100,7 @@ namespace wplan.Controllers
         public IActionResult Success()
         {
             return View("~/Views/User/Success.cshtml");
+            // return RedirectToAction("Plan", "Wedding");
         }
     }
 }
